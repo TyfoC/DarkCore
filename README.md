@@ -1,2 +1,2 @@
 # DarkCore
-Intel 808386 OS
+Intel 80386 OS
