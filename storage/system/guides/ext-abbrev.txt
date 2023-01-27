@@ -1,0 +1,2 @@
+RPF - Raw Parse File
+LEF - Lightweight Executable File
