@@ -32,8 +32,9 @@ Scheduler::Thread Scheduler::CreateThread(bool suspended, size_t entryPoint, siz
 	Thread thread = {};
 
 	thread.State = suspended ? STATE_SUSPENDED : STATE_READY_TO_RUN;
-	thread.SkipTicksCount = 0;
-	thread.WorkingTicksCount = Scheduler::TICKS_COUNT_USER_PRIORITY;
+	thread.SleepTicksCount = 0;
+	thread.TicksBeforeSwitchCount = Scheduler::TICKS_COUNT_USER_PRIORITY;
+	thread.WorkedTicksCount = 0;
 
 	bool pagingEnable = VMM::VirtualMemoryEnabled();
 	if (pagingEnable) VMM::DisableVirtualMemory();
@@ -103,7 +104,7 @@ void Scheduler::AddThread(const PThread thread) {
 
 void Scheduler::Sleep(size_t ticksCount) {
 	CurrentThread_->State = STATE_SLEEPING;
-	CurrentThread_->SkipTicksCount = ticksCount;
+	CurrentThread_->SleepTicksCount = ticksCount;
 }
 
 size_t Scheduler::GetTicksCount() {

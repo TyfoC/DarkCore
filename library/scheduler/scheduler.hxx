@@ -44,8 +44,9 @@ class Scheduler {
 
 	typedef struct DEFINE_SPECIAL(PACKED_DEFINITION) Thread {
 		size_t			State;
-		size_t			SkipTicksCount;
-		size_t			WorkingTicksCount;
+		size_t			SleepTicksCount;
+		size_t			TicksBeforeSwitchCount;
+		size_t			WorkedTicksCount;
 		VMM::PDirectory	PagingDirectory;
 		ThreadRegisters	Registers;
 		Thread*			Next;
