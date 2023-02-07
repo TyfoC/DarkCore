@@ -58,10 +58,6 @@ class Kernel {
 		static bool FreePhysicalStorageDevice(StorageDevice& physicalStorageDevice);
 
 		static String PerformPathString(const char* currentPath, const char* rawPath);
-
-		static size_t StackPointer;
-		static size_t BasePointer;
-		static size_t DEFINE_SPECIAL(ALIGNED_DEFINITION(4)) Stack[];
 	};
 
 	static void SupervisorTask();

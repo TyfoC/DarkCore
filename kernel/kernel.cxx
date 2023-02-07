@@ -196,10 +196,6 @@ void Kernel::SupervisorTask() {
 	while (1);
 }
 
-size_t Kernel::UserModeCalls::StackPointer = 0;
-size_t Kernel::UserModeCalls::BasePointer = 0;
-size_t DEFINE_SPECIAL(ALIGNED_DEFINITION(4)) Kernel::UserModeCalls::Stack[0x100] = {};
-
 void Kernel::UserModeCalls::PowerService(CPU::PISRData pointer) {
 	if (pointer->CounterRegister == 0) ACPI::PowerOff();
 	else if (pointer->CounterRegister == 1) PS2Controller::Reboot();
