@@ -90,11 +90,12 @@ EXTERN_C void DarkCore(BootInformation::Structure bootInformationStructure) {
 	}
 
 	UserModeCalls::Initialize(Kernel::InterruptDT, 0x08);
-	UserModeCalls::SetFunction(DARK_CORE_UMC_POWER_MANAGEMENT_SERVICE, Kernel::UserModeCalls::PowerService);
+	UserModeCalls::SetFunction(DARK_CORE_UMC_POWER_SERVICE, Kernel::UserModeCalls::PowerService);
 	UserModeCalls::SetFunction(DARK_CORE_UMC_MEMORY_SERVICE, Kernel::UserModeCalls::MemoryService);
 	UserModeCalls::SetFunction(DARK_CORE_UMC_TELETYPE_SERVICE, Kernel::UserModeCalls::TerminalService);
 	UserModeCalls::SetFunction(DARK_CORE_UMC_KEYBOARD_SERVICE, Kernel::UserModeCalls::KeyboardService);
 	UserModeCalls::SetFunction(DARK_CORE_UMC_FILESYSTEM_SERVICE, Kernel::UserModeCalls::FileSystemService);
+	UserModeCalls::SetFunction(DARK_CORE_UMC_THREAD_SERVICE, Kernel::UserModeCalls::ThreadService);
 	
 	char* binaryObjectData;
 	bool neededObjectDescriptorFound = false;
@@ -470,6 +471,10 @@ void Kernel::UserModeCalls::FileSystemService(CPU::PISRData pointer) {
 		}
 		else pointer->AccumulatorRegister = 0;
 	}
+}
+
+void Kernel::UserModeCalls::ThreadService(CPU::PISRData pointer) {
+	if (pointer->CounterRegister == 0) pointer->AccumulatorRegister = Scheduler::GetCurrentThread()->WorkedTicksCount;
 }
 
 bool Kernel::UserModeCalls::CreatePhysicalStorageDevice(VMM::PDirectory vmmDirectory, StorageDevice& virtualStorageDevice, StorageDevice& resultPhysicalStorageDevice) {

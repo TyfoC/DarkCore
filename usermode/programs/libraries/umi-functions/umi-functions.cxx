@@ -1,11 +1,11 @@
 #include "umi-functions.hxx"
 
-void UMIFunctions::PowerManagement::Shutdown() {
-	__asm__ __volatile__("int $0xEC"::"a"(SERVICE_POWER_MANAGEMENT), "c"(FUNCTION_SHUTDOWN));
+void UMIFunctions::Power::Shutdown() {
+	__asm__ __volatile__("int $0xEC"::"a"(SERVICE_POWER), "c"(FUNCTION_SHUTDOWN));
 }
 
-void UMIFunctions::PowerManagement::Reboot() {
-	__asm__ __volatile__("int $0xEC"::"a"(SERVICE_POWER_MANAGEMENT), "c"(FUNCTION_REBOOT));
+void UMIFunctions::Power::Reboot() {
+	__asm__ __volatile__("int $0xEC"::"a"(SERVICE_POWER), "c"(FUNCTION_REBOOT));
 }
 
 void* UMIFunctions::Memory::Allocate(size_t count) {
@@ -100,6 +100,12 @@ puint8_t UMIFunctions::FileSystem::ReadFile(const char* filePath, size_t* readed
 	__asm__ __volatile__("int $0xEC":"=a"(fileContentAddress), "=c"(fileContentSize):"a"(SERVICE_FILESYSTEM), "c"(FUNCTION_READ_FILE), "d"((size_t)filePath));
 	*readedBytesCount = fileContentSize;
 	return (puint8_t)fileContentAddress;
+}
+
+size_t UMIFunctions::Thread::GetWorkedTicksCount() {
+	size_t result;
+	__asm__ __volatile__("int $0xEC":"=a"(result):"a"(SERVICE_THREAD), "c"(FUNCTION_GET_WORKED_TICKS_COUNT));
+	return result;
 }
 
 #ifdef __cplusplus

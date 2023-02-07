@@ -9,7 +9,7 @@
 class UMIFunctions {
 	public:
 	//	0
-	class PowerManagement {
+	class Power {
 		public:
 		enum Functions {
 			FUNCTION_SHUTDOWN =	0x00,
@@ -129,12 +129,23 @@ class UMIFunctions {
 		static puint8_t ReadFile(const char* filePath, size_t* readedBytesCount);
 	};
 
+	//	5
+	class Thread {
+		public:
+		enum Functions {
+			FUNCTION_GET_WORKED_TICKS_COUNT =	0
+		};
+
+		static size_t GetWorkedTicksCount();
+	};
+
 	enum ServiceIndexes {
-		SERVICE_POWER_MANAGEMENT =		0x00,
+		SERVICE_POWER =					0x00,
 		SERVICE_MEMORY =				0x01,
 		SERVICE_TELETYPE =				0x02,
 		SERVICE_KEYBOARD =				0x03,
-		SERVICE_FILESYSTEM =			0x04
+		SERVICE_FILESYSTEM =			0x04,
+		SERVICE_THREAD =				0x05
 	};
 };
 

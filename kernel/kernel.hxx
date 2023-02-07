@@ -34,11 +34,12 @@
 #define DARK_CORE_IDT_ENTRIES_COUNT								0x100
 
 //	user mode interrupt (0xEC)
-#define DARK_CORE_UMC_POWER_MANAGEMENT_SERVICE					0
+#define DARK_CORE_UMC_POWER_SERVICE								0
 #define DARK_CORE_UMC_MEMORY_SERVICE							1
 #define DARK_CORE_UMC_TELETYPE_SERVICE							2
 #define DARK_CORE_UMC_KEYBOARD_SERVICE							3
 #define DARK_CORE_UMC_FILESYSTEM_SERVICE						4
+#define DARK_CORE_UMC_THREAD_SERVICE							5
 
 EXTERN_C void DarkCore(BootInformation::Structure bootInformationStructure);
 
@@ -51,6 +52,7 @@ class Kernel {
 		static void TerminalService(CPU::PISRData pointer);
 		static void KeyboardService(CPU::PISRData pointer);
 		static void FileSystemService(CPU::PISRData pointer);
+		static void ThreadService(CPU::PISRData pointer);
 
 		static bool CreatePhysicalStorageDevice(VMM::PDirectory vmmDirectory, StorageDevice& virtualStorageDevice, StorageDevice& resultPhysicalStorageDevice);
 		static bool FreePhysicalStorageDevice(StorageDevice& physicalStorageDevice);
