@@ -1,7 +1,7 @@
 #include <umi-functions/umi-functions.hxx>
 #include <common/string-utils.hxx>
 
-using PowerManagement = UMIFunctions::PowerManagement;
+using Power = UMIFunctions::Power;
 using Memory = UMIFunctions::Memory;
 using Terminal = UMIFunctions::Terminal;
 using Keyboard = UMIFunctions::Keyboard;
@@ -71,8 +71,8 @@ EXTERN_C void main() {
 			Terminal::PrintFormat("Memory allocated: %s\r\n", (size_t)data ? "yes" : "no");
 			Terminal::PrintFormat("Memory freed: %s\r\n", Memory::Free(data) ? "yes" : "no");
 		}
-		else if (!StringUtils::FindFirstSubstr(UserInputBuffer, Commands[COMMAND_INDEX_SHUTDOWN])) PowerManagement::Shutdown();
-		else if (!StringUtils::FindFirstSubstr(UserInputBuffer, Commands[COMMAND_INDEX_REBOOT])) PowerManagement::Reboot();
+		else if (!StringUtils::FindFirstSubstr(UserInputBuffer, Commands[COMMAND_INDEX_SHUTDOWN])) Power::Shutdown();
+		else if (!StringUtils::FindFirstSubstr(UserInputBuffer, Commands[COMMAND_INDEX_REBOOT])) Power::Reboot();
 		else if (!StringUtils::FindFirstSubstr(UserInputBuffer, Commands[COMMAND_INDEX_GET_CURRENT_PATH])) {
 			char* currentPath = FileSystem::GetCurrentPath();
 			Terminal::PrintFormat("Current path: `%s`\r\n", currentPath);
